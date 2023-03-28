@@ -1,4 +1,4 @@
-# Cat-Face-Line
+# Cat-Face-Flat
 
 ## 🤖 An application for working with neutron networks and not only.
 
