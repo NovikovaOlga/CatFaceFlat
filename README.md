@@ -4,9 +4,9 @@ Vision, CoreML
 ## 🤖 An application for working with neutron networks and not only.
 
 ## 🚀 Capabilities
-<p> The application has created an ML model for recognizing cats, dogs, mice and trees. 
-Face recognition is implemented. 
-Additionally, a ruler is implemented that allows you to measure the distance from the device to the object and the distance between two points. </p>
+- **The application has created an ML model for recognizing cats, dogs, mice and trees.**
+- **Face recognition is implemented.**
+- **Additionally, a ruler is implemented that allows you to measure the distance from the device to the object and the distance between two points.**
 
 <p>
 
