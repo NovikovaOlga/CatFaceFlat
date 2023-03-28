@@ -3,8 +3,8 @@
 ## 🤖 An application for working with neutron networks and not only.
 
 ## 🚀 Capabilities
-- ** An ML model has been created in the application for recognizing cats, dogs, mice and trees.**
-- ** Face recognition has been implemented.**
+- **An ML model has been created in the application for recognizing cats, dogs, mice and trees.**
+- **Face recognition has been implemented.**
 - **Forecasting of real estate prices is carried out depending on the set parameters.**
 
 <p>
