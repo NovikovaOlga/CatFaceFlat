@@ -1,6 +1,6 @@
-# Cat-Face-Line
+# Cat-Face-Flat
 
-## 🤖 An application for working with neutron networks and not only.
+## 🤖 An application for working with neural networks and not only.
 
 ## 🚀 Capabilities
 - **An ML model has been created in the application for recognizing cats, dogs, mice and trees.**
