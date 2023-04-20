@@ -5,17 +5,17 @@ import UIKit
 import Vision
 
 class FaceView: UIView {
-  var faceContour: [CGPoint] = []
+  var faceContour: [CGPoint] = [] // контур лица (нижняя половина)
   var leftEye: [CGPoint] = []
   var rightEye: [CGPoint] = []
   var leftEyebrow: [CGPoint] = []
   var rightEyebrow: [CGPoint] = []
   var nose: [CGPoint] = []
-  var noseCrest: [CGPoint] = []
-  var medianLine: [CGPoint] = []
+  var noseCrest: [CGPoint] = [] // гребень носа
+  var medianLine: [CGPoint] = [] // контур центральной линии лица.
   var outerLips: [CGPoint] = []
   var innerLips: [CGPoint] = []
-  var leftPupil: [CGPoint] = []
+  var leftPupil: [CGPoint] = [] // точка, в которой расположен левый зрачок. Неточно при моргании
   var rightPupil: [CGPoint] = []
  
 

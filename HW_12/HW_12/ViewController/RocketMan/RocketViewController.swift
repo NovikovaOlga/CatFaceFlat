@@ -9,11 +9,11 @@ protocol RocketViewControllerDelegate: AnyObject {
 extension RocketViewController: RocketViewControllerDelegate {
     func updateDemoImage(imageName: String) {
         
-        let originalImage = UIImage(named: imageName)!
+        let originalImage = UIImage(named: imageName)! // Извлечь выбранное изображение.
         
-        show(originalImage)
+        show(originalImage) // Отображение изображения на экране.
         
-        let cgOrientation = CGImagePropertyOrientation (originalImage.imageOrientation)
+        let cgOrientation = CGImagePropertyOrientation (originalImage.imageOrientation)   // Конвертировать из UIImageOrientation в CGImagePropertyOrientation.
         
         guard let cgImage = originalImage.cgImage else {
             return
@@ -28,25 +28,25 @@ class RocketViewController: UIViewController {
     let picker = UIImagePickerController()
     
     // MARK: face detection  - var, let
-    var pathLayer: CALayer?
-    var imageWidth: CGFloat = 0
+    var pathLayer: CALayer? // Слой, на котором рисуем контуры ограничивающей рамки.
+    var imageWidth: CGFloat = 0 // Параметры изображения для повторного использования во всем приложении
     var imageHeight: CGFloat = 0
-    var croppedImage: UIImage!
+    var croppedImage: UIImage!  // ОБРЕЗКА: переменная, в которой хранится исходное изображение для обрезки show
     
     // MARK: face detection - Vision
-    lazy var faceDetectionRequest = VNDetectFaceRectanglesRequest(completionHandler: self.handleDetectedFaces)
-    lazy var faceLandmarkRequest = VNDetectFaceLandmarksRequest(completionHandler: self.handleDetectedFaceLandmarks)
+    lazy var faceDetectionRequest = VNDetectFaceRectanglesRequest(completionHandler: self.handleDetectedFaces) // определение границ лица (передаем функцию completionHandler, которая будет выполнена после успешного выполнения запросов
+    lazy var faceLandmarkRequest = VNDetectFaceLandmarksRequest(completionHandler: self.handleDetectedFaceLandmarks) // определение признаков лица
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var pickerOutlet: UIButton!
     
     @IBAction func pickerButtonPress(_ sender: UIButton) {
-        showAlert()
+        showAlert() // меню выбора (1) активная камера, 2)снимок с камеры, 3)выбор из галлереи телефона, 4) выбор из демо галлереи, 5)отмена)
     }
     
-    @IBAction func rocketButtonPress(_ sender: Any) {
+    @IBAction func rocketButtonPress(_ sender: Any) { // запуск яблока (добавить проверку)
         // Извлечь выбранное изображение.
-        let originalImage: UIImage = imageView.image!
+        let originalImage: UIImage = imageView.image! // добавить проверку или сделать кнопку пуск невидимой пока нет картинки
 
         // Конвертировать из UIImageOrientation в CGImagePropertyOrientation.
         let cgOrientation = CGImagePropertyOrientation(originalImage.imageOrientation)
@@ -60,31 +60,31 @@ class RocketViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        setup() // установка красоты для кнопки
     }
     
     // MARK: segue -> RocketCollectionViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destination = segue.destination as? RocketCollectionViewController else { return }
-       destination.delegate = self
+       destination.delegate = self  //подписываемся-идем за картинкой
     }
     
     private func setup() { // красота для кнопки
         pickerOutlet.setTitle("Add Image", for: .normal)
-        pickerOutlet.layer.masksToBounds = true
+        pickerOutlet.layer.masksToBounds = true // true = основная анимация создает неявную маску отсечения, которая соответствует границам слоя и включает любые эффекты радиуса угла
         pickerOutlet.layer.cornerRadius = 16
     }
     
     //MARK: picker
-    private func showImagePicker(sourceType: UIImagePickerController.SourceType) {
+    private func showImagePicker(sourceType: UIImagePickerController.SourceType) { //средство выбора изображений для показа
         let imagePickerViewController = UIImagePickerController()
-        imagePickerViewController.delegate = self
-        imagePickerViewController.sourceType = sourceType
+        imagePickerViewController.delegate = self // делегат
+        imagePickerViewController.sourceType = sourceType // Тип интерфейса выбора, который должен отображаться контроллером.
         present(imagePickerViewController, animated: true)
     }
     
     //MARK: picker showAlert
-    private func showAlert() {
+    private func showAlert() { // шоу меню (вызов кнопкой)
         
         let alertController = UIAlertController(title: "Выбор изображения", message: nil, preferredStyle: .actionSheet)
         
@@ -105,7 +105,7 @@ class RocketViewController: UIViewController {
             }
         }
         
-        let cameraWithoutApple = UIAlertAction(title: "Признаки лица (доп)", style: .default) { _ in
+        let cameraWithoutApple = UIAlertAction(title: "Признаки лица (доп)", style: .default) { _ in // CameraRocketViewControllert
             self.performSegue(withIdentifier: "toCameraWithoutApple", sender: self)
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 self.showImagePicker(sourceType: .camera)
@@ -114,7 +114,7 @@ class RocketViewController: UIViewController {
             }
         }
       
-        let geometryCamera = UIAlertAction(title: "VR камера (доп)", style: .default) { _ in  https://www.raywenderlich.com/5491-ar-face-tracking-tutorial-for-ios-getting-started
+        let geometryCamera = UIAlertAction(title: "VR камера (доп)", style: .default) { _ in // https://www.raywenderlich.com/5491-ar-face-tracking-tutorial-for-ios-getting-started
             self.performSegue(withIdentifier: "toGeometryFaceCamera", sender: self)
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 self.showImagePicker(sourceType: .camera)
@@ -138,6 +138,7 @@ class RocketViewController: UIViewController {
     // MARK: face detection(1+) - объединение результатов в массив
     fileprivate func createVisionRequests() -> [VNRequest] {
         
+        // массив сбора данных из всех запросов
         var requests: [VNRequest] = []
         
         requests.append(self.faceDetectionRequest)
@@ -156,9 +157,9 @@ class RocketViewController: UIViewController {
                                                         options: [:])
         
         // запросы обработчику запросов
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async { // на неглавном потоке
             do {
-                try imageRequestHandler.perform(requests)
+                try imageRequestHandler.perform(requests) // сюда передаем запросы на определение границ лица и признаков (и вызываем поочередно наши requests)
             } catch let error as NSError {
                 print("Failed to perform image request: \(error)")
                 self.alertHelper.presentAlert("Image Request Failed", error: error, controller: self)
@@ -173,12 +174,12 @@ class RocketViewController: UIViewController {
             self.alertHelper.presentAlert("Face Detection Error", error: nsError, controller: self)
             return
         }
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { // переходим на главный поток, тк вся работа с интерфейсом на главном потоке
             guard let drawLayer = self.pathLayer,
-                  let results = request?.results as? [VNFaceObservation] else {
+                  let results = request?.results as? [VNFaceObservation] else { // из request достаем результаты
                       return
                   }
-            self.draw(faces: results, onImageWithBounds: drawLayer.bounds)
+            self.draw(faces: results, onImageWithBounds: drawLayer.bounds) // и просим отрисовать их
             drawLayer.setNeedsDisplay()
         }
     }
@@ -188,28 +189,30 @@ class RocketViewController: UIViewController {
             self.alertHelper.presentAlert("Face Landmark Detection Error", error: nsError, controller: self)
             return
         }
-        
+        // Выполните рисование по основной нити.
         DispatchQueue.main.async {
             guard let drawLayer = self.pathLayer,
                   let results = request?.results as? [VNFaceObservation] else {
                       return
                   }
-            self.drawFeatures(onFaces: results, onImageWithBounds: drawLayer.bounds)
+            self.drawFeatures(onFaces: results, onImageWithBounds: drawLayer.bounds) // отличие от handleDetectedFaces, что передаем в drawFeatures, а не в draw
             drawLayer.setNeedsDisplay()
         }
     }
     
     // MARK: face detection (3) - отрисовка
     fileprivate func draw(faces: [VNFaceObservation], onImageWithBounds bounds: CGRect) {
-        CATransaction.begin()
-        for observation in faces {
-            let faceBox = boundingBox(forRegionOfInterest: observation.boundingBox, withinImageBounds: bounds)
-            let faceLayer = shapeLayer(color: .yellow, frame: faceBox)
-           
-            pathLayer?.addSublayer(faceLayer)
-            animateRocketTo(frame: faceBox)
+        CATransaction.begin() // группировки операций с несколькими слоями (новая транзакция для текущего потока)
+        for observation in faces { //  в массиве пробегаемся по всем лицам и достаем boundingBox - CGRect прямоугольник границ лица
+            let faceBox = boundingBox(forRegionOfInterest: observation.boundingBox, withinImageBounds: bounds) // boundingBox - прямоугольник границ лица
+            let faceLayer = shapeLayer(color: .yellow, frame: faceBox) // создаем для faceBox - faceLayer
+            
+            // Добавить слой пути поверх изображения.
+            pathLayer?.addSublayer(faceLayer) // добавляем его в наш интерфейс
+            
+            animateRocketTo(frame: faceBox) // запуск ракеты
         }
-        CATransaction.commit()
+        CATransaction.commit() // группировки операций с несколькими слоями (Зафиксируйте все изменения, внесенные во время текущей транзакции)
     }
 
     // MARK: ракета (яблоко)
@@ -227,7 +230,7 @@ class RocketViewController: UIViewController {
             rocket.center = CGPoint(x: frame.origin.x + frame.size.width/2, y: frame.origin.y + frame.size.height/8)
         }) { (_) in
 
-            rocket.removeFromSuperview()
+            rocket.removeFromSuperview() // удаляем ракету - если выстрелить много раз, то они копятся на слое и это ужасно
         }
     }
     
@@ -297,17 +300,19 @@ class RocketViewController: UIViewController {
         CATransaction.commit()
     }
   
+    
     // MARK: face detection (3+) - наложение нового слоя
     fileprivate func shapeLayer(color: UIColor, frame: CGRect) -> CAShapeLayer {
         // Создайте новый слой.
         let layer = CAShapeLayer()
         
         // Настройка внешнего вида слоя.
-        layer.fillColor = nil
+        layer.fillColor = nil // Нет заливки для отображения объекта в штучной упаковке
         layer.shadowOpacity = 0
         layer.shadowRadius = 0
         layer.borderWidth = 2
         
+        // Измените цвет линии в соответствии с вводимыми данными.
         layer.borderColor = color.cgColor
         
         // Найдите слой.

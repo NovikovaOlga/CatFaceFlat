@@ -36,21 +36,22 @@ class ScanerViewController: UIViewController {
         //       let im = UIImage(named: "1")
         //        classifierService.classifyImage(im!)
         
-        bindToImageClassifierService()
-        setup()
+        bindToImageClassifierService() // установка сервиса распознавания
+        setup() // установка красоты для кнопки
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //  classifierService.classifyImage(image!)
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destination = segue.destination as? ScanerCollectionViewController else { return }
-        destination.delegate = self
+        destination.delegate = self  // обязательно подписываемся на делегата при пререходе когда идем за демо картинкой (пошли - предупредили делегата)
     }
     
-    private func bindToImageClassifierService() {
+    private func bindToImageClassifierService() { // привязка к сервису классификации изображений
         classifierService.onDidUpdateState = { [weak self] state in
             self?.setupWithImageClassifierState(state)
         }
@@ -58,13 +59,15 @@ class ScanerViewController: UIViewController {
     
     private func setup() { // красота для кнопки
         addButton.setTitle("Add Image", for: .normal)
-        addButton.layer.masksToBounds = true
+        addButton.layer.masksToBounds = true // true = основная анимация создает неявную маску отсечения, которая соответствует границам слоя и включает любые эффекты радиуса угла
         addButton.layer.cornerRadius = 16
-        
+        //   descriptionLabel.isHidden = true
     }
     
-    private func setupWithImageClassifierState(_ state: ImageClassifierServiceState) {
-        switch state {
+    private func setupWithImageClassifierState(_ state: ImageClassifierServiceState) { // результат обработки в лейбл
+        
+        //  descriptionLabel.isHidden = false
+        switch state { // обработка кейсов из класификатора
         case .startRequest:
             descriptionLabel.text = "Сlassification in progress"
         case .requestFailed:
@@ -74,14 +77,14 @@ class ScanerViewController: UIViewController {
         }
     }
     
-    private func showImagePicker(sourceType: UIImagePickerController.SourceType) {
+    private func showImagePicker(sourceType: UIImagePickerController.SourceType) { //средство выбора изображений для показа
         let imagePickerViewController = UIImagePickerController()
-        imagePickerViewController.delegate = self
-        imagePickerViewController.sourceType = sourceType
+        imagePickerViewController.delegate = self // делегатик
+        imagePickerViewController.sourceType = sourceType // Тип интерфейса выбора, который должен отображаться контроллером.
         present(imagePickerViewController, animated: true)
     }
     
-    private func showAlert() {
+    private func showAlert() { // шоу меню (вызов кнопкой)
         
         let alertController = UIAlertController(title: "Выбор изображения", message: nil, preferredStyle: .actionSheet)
         
@@ -113,9 +116,9 @@ class ScanerViewController: UIViewController {
     
     // MARK: - UIImagePickerControllerDelegate
     
-    extension ScanerViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    extension ScanerViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate { // делегат для картинок
         
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info:[UIImagePickerController.InfoKey : Any]) { 
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info:[UIImagePickerController.InfoKey : Any]) { // извлечение из меню алерта - необрезанное изображение
             
             let imageKey = UIImagePickerController.InfoKey.originalImage
             guard let image = info[imageKey] as? UIImage else {

@@ -2,7 +2,7 @@ import UIKit
 import Vision
 import CoreML
 
-enum ImageClassifierServiceState { 
+enum ImageClassifierServiceState { // классификация объектов (состояние)
   case startRequest, requestFailed, receiveResult(resultModel: ClassifierResultModel)
 }
 

@@ -8,6 +8,7 @@ class AlertHelper {
     
     // MARK: камера не найдена (при попытке запустить камеру на симуляторе - чтоб приложение не крэшнулось)
     func cameraIsNotAvialable(controller: UIViewController) {
+        // Всегда оповещение в основном потоке.
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Ошибка", message: "The camera is not available", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .destructive, handler: nil)
@@ -18,6 +19,7 @@ class AlertHelper {
     
     // MARK: present alert (2+)
     func presentAlert(_ title: String, error: NSError, controller: UIViewController ) {
+        // Всегда оповещение в основном потоке.
         DispatchQueue.main.async {
             let alertController = UIAlertController(title: title,
                                                     message: error.localizedDescription,
