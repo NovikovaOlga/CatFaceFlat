@@ -9,9 +9,10 @@
  <img style="width: 180px;" src="https://github.com/NovikovaOlga/novikovaolga/blob/main/Other/CatFaceLine/Demo1.gif">
  <img style="width: 180px;" src="https://github.com/NovikovaOlga/novikovaolga/blob/main/Other/CatFaceLine/Demo2.gif">
  <img style="width: 180px;" src="https://github.com/NovikovaOlga/novikovaolga/blob/main/Other/CatFaceLine/Demo3.gif">
+ <img style="width: 180px;" src="https://github.com/NovikovaOlga/novikovaolga/blob/main/Other/CatFaceLine/screen1.PNG">
  <img style="width: 180px;" src="https://github.com/NovikovaOlga/novikovaolga/blob/main/Other/CatFaceLine/screen2.PNG">
- <img style="width: 180px;" src="https://github.com/NovikovaOlga/novikovaolga/blob/main/Other/CatFaceLine/screen5.PNG">
  <img style="width: 180px;" src="https://github.com/NovikovaOlga/novikovaolga/blob/main/Other/CatFaceLine/screen6.PNG">
+ <img style="width: 180px;" src="https://github.com/NovikovaOlga/novikovaolga/blob/main/Other/CatFaceLine/screen5.PNG">
  <img style="width: 180px;" src="https://github.com/NovikovaOlga/novikovaolga/blob/main/Other/CatFaceLine/screen4.PNG">
  <img style="width: 180px;" src="https://github.com/NovikovaOlga/novikovaolga/blob/main/Other/CatFaceLine/screen3.PNG">
  <img style="width: 180px;" src="https://github.com/NovikovaOlga/novikovaolga/blob/main/Other/CatFaceLine/screen4.PNG">
