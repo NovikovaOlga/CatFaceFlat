@@ -1,9 +1,9 @@
 # Cat-Face-Flat
 
-## 🤖 An application for working with neural networks and not only.
+## 🤖 Neural networks and not only.
 
 ## Description
-- An application for object recognition and forecasting.
+<p> An application for object recognition and forecasting.</p>
 
 <p>
  <img style="width: 180px;" src="https://github.com/NovikovaOlga/novikovaolga/blob/main/Other/CatFaceLine/Demo1.gif">
@@ -25,6 +25,12 @@
 ## Technologies
  - **Vision**
  - **CoreML**
+ - **.mlmodel** 
+ - **AVFoundation** 
+ - **MapKit**
+ - **CoreGraphics**
+  - ****
+
 
 ## Technologies
 
