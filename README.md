@@ -39,7 +39,6 @@
     - to predict real estate prices based on the entered parameters, simply click on a point on the map
     - by specifying several points you will get a forecast for each of them
 
-
 ## Technologies
  - **Vision**
  - **CoreML**
@@ -47,11 +46,12 @@
  - **AVFoundation** 
  - **MapKit**
  - **CoreGraphics**
-  - ****
-
-
-## Technologies
 
 ## Privacy
+The application will ask for access permission:
+- **Photo Library**
+- **Camera**
 
 # Installing and launching
+ Download the project archive.
+Project startup file: Mask.xcodeproj
